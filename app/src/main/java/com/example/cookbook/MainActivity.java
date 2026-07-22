@@ -11,7 +11,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
-    DatabaseHelper dbHelper;
+    private DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,10 @@ public class MainActivity extends AppCompatActivity {
         // Khởi tạo Database
         dbHelper = new DatabaseHelper(this);
 
-        // Dòng này sẽ kích hoạt onCreate() trong DatabaseHelper để tạo toàn bộ 9 bảng
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentContainer, new FavoritesFragment())
+                    .commit();
+        }
     }
 }

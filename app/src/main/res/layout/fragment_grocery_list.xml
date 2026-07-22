@@ -83,7 +83,7 @@
             android:id="@+id/btnClearCompleted"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
-            android:layout_height="46dp"
+            android:layout_height="48dp"
             android:layout_gravity="end"
             android:layout_marginTop="12dp"
             android:text="🗑 Clear 3 completed"
@@ -156,7 +156,6 @@
                 android:checked="true"
                 android:buttonTint="#00B8A9"
                 android:paddingStart="8dp"
-                android:paintFlags="strike_thru_text"
                 android:text="300 g Beef brisket"
                 android:textColor="#8C919E"
                 android:textSize="14sp" />

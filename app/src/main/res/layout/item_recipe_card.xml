@@ -15,6 +15,8 @@
         android:paddingBottom="12dp">
 
         <!-- Ảnh món ăn -->
+
+        <!-- Nút tim đỏ nhỏ góc ảnh -->
         <ImageView
             android:id="@+id/imgRecipe"
             android:layout_width="match_parent"
@@ -22,10 +24,10 @@
             android:scaleType="centerCrop"
             android:src="@android:drawable/ic_menu_gallery"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Nút tim đỏ nhỏ góc ảnh -->
         <ImageView
             android:id="@+id/btnHeart"
             android:layout_width="28dp"
@@ -41,7 +43,7 @@
 
         <!-- Thời gian nấu -->
         <TextView
-            android:id="@+id/tvTime"
+            android:id="@+id/tvCookTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
