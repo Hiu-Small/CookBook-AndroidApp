@@ -7,7 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -329,5 +331,133 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         cursor.close(); // Luôn nhớ đóng cursor
         return userId;
+    }
+
+    // 1. Lấy hoặc tạo listId cho User
+    public int getOrCreateGroceryListId(int userId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int listId = -1;
+
+        Cursor cursor = db.rawQuery("SELECT listId FROM GroceryList WHERE userId = ?", new String[]{String.valueOf(userId)});
+        if (cursor.moveToFirst()) {
+            listId = cursor.getInt(cursor.getColumnIndexOrThrow("listId"));
+        } else {
+            ContentValues values = new ContentValues();
+            values.put("userId", userId);
+            values.put("title", "My Grocery List");
+            listId = (int) db.insert("GroceryList", null, values);
+        }
+        cursor.close();
+        return listId;
+    }
+
+    // 2. Lấy danh sách nguyên liệu đã gom nhóm theo Tên Món Ăn (Recipe)
+    public List<GrocerySection> getGroupedGroceryList(int userId) {
+        List<GrocerySection> sectionList = new ArrayList<>();
+        int listId = getOrCreateGroceryListId(userId);
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT gi.*, r.title AS recipeTitle " +
+                "FROM GroceryItem gi " +
+                "LEFT JOIN Recipe r ON gi.recipeId = r.recipeId " +
+                "WHERE gi.listId = ?";
+
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(listId)});
+        Map<String, List<GroceryItem>> mapItems = new LinkedHashMap<>();
+        Map<String, Integer> mapRecipeIds = new LinkedHashMap<>();
+
+        if (cursor.moveToFirst()) {
+            do {
+                int itemId = cursor.getInt(cursor.getColumnIndexOrThrow("itemId"));
+                String name = cursor.getString(cursor.getColumnIndexOrThrow("ingredientName"));
+                String qty = cursor.getString(cursor.getColumnIndexOrThrow("quantity"));
+                int isCheckedInt = cursor.getInt(cursor.getColumnIndexOrThrow("isChecked"));
+
+                Integer recipeId = null;
+                if (!cursor.isNull(cursor.getColumnIndexOrThrow("recipeId"))) {
+                    recipeId = cursor.getInt(cursor.getColumnIndexOrThrow("recipeId"));
+                }
+
+                String recipeTitle = cursor.getString(cursor.getColumnIndexOrThrow("recipeTitle"));
+                if (recipeTitle == null || recipeTitle.isEmpty()) {
+                    recipeTitle = "Món mua thêm";
+                } else {
+                    recipeTitle = "🟠  " + recipeTitle;
+                }
+
+                GroceryItem item = new GroceryItem(itemId, listId, name, qty, isCheckedInt == 1, recipeId);
+
+                if (!mapItems.containsKey(recipeTitle)) {
+                    mapItems.put(recipeTitle, new ArrayList<>());
+                    mapRecipeIds.put(recipeTitle, recipeId);
+                }
+                mapItems.get(recipeTitle).add(item);
+
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+
+        for (Map.Entry<String, List<GroceryItem>> entry : mapItems.entrySet()) {
+            sectionList.add(new GrocerySection(entry.getKey(), mapRecipeIds.get(entry.getKey()), entry.getValue()));
+        }
+
+        return sectionList;
+    }
+
+    // 3. Cập nhật trạng thái CheckBox
+    public void updateGroceryItemCheck(int itemId, boolean isChecked) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("isChecked", isChecked ? 1 : 0);
+        db.update("GroceryItem", values, "itemId = ?", new String[]{String.valueOf(itemId)});
+    }
+
+    // 4. Xóa tất cả các mục đã tick chọn (Clear Completed)
+    public void clearCompletedGroceryItems(int userId) {
+        int listId = getOrCreateGroceryListId(userId);
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("GroceryItem", "listId = ? AND isChecked = 1", new String[]{String.valueOf(listId)});
+    }
+
+    // 5. Thêm một mục mới thủ công (Add Item)
+    public boolean addGroceryItem(int userId, String name, String quantity) {
+        int listId = getOrCreateGroceryListId(userId);
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("listId", listId);
+        values.put("ingredientName", name);
+        values.put("quantity", quantity);
+        values.put("isChecked", 0);
+
+        return db.insert("GroceryItem", null, values) != -1;
+    }
+
+    // 2. Xóa 1 nguyên liệu duy nhất (Bấm nút dấu trừ)
+    public boolean deleteGroceryItem(int itemId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete("GroceryItem", "itemId = ?", new String[]{String.valueOf(itemId)}) > 0;
+    }
+
+    // 3. Xóa cả 1 Món Ăn (Bấm nút dấu X ở header món)
+    public void deleteGrocerySection(int userId, Integer recipeId) {
+        int listId = getOrCreateGroceryListId(userId);
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        if (recipeId != null) {
+            db.delete("GroceryItem", "listId = ? AND recipeId = ?",
+                    new String[]{String.valueOf(listId), String.valueOf(recipeId)});
+        } else {
+            // Trường hợp "Món mua thêm" (recipeId IS NULL)
+            db.delete("GroceryItem", "listId = ? AND recipeId IS NULL",
+                    new String[]{String.valueOf(listId)});
+        }
+    }
+
+    // 4. Xóa toàn bộ danh sách (Bấm nút Clear All List)
+    public void clearAllGroceryList(int userId) {
+        int listId = getOrCreateGroceryListId(userId);
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("GroceryItem", "listId = ?", new String[]{String.valueOf(listId)});
     }
 }
