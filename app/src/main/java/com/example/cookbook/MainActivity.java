@@ -8,12 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-<<<<<<< HEAD
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-=======
->>>>>>> fbe116b16bc3fe17b366811ab97696ca9cacafe9
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,21 +21,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-<<<<<<< HEAD
-=======
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
->>>>>>> fbe116b16bc3fe17b366811ab97696ca9cacafe9
 
         // Khởi tạo Database
         dbHelper = new DatabaseHelper(this);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-<<<<<<< HEAD
                     .replace(R.id.fragment_container, new HomeFragment())
                     .commit();
         }
@@ -68,10 +56,5 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         });
-=======
-                    .replace(R.id.fragmentContainer, new GroceryListFragment())
-                    .commit();
-        }
->>>>>>> fbe116b16bc3fe17b366811ab97696ca9cacafe9
     }
 }
