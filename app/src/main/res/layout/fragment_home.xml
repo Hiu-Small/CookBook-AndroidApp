@@ -64,7 +64,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="#CCCCCC"
-                        android:scaleType="centerCrop" />
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/avatar"/>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
         </RelativeLayout>
@@ -109,6 +110,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/btnSearch"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="12dp"
@@ -138,65 +140,83 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="16dp">
+                android:layout_height="match_parent">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="#4DFFFFFF"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="4dp"
-                    android:text="🎲 Today's Pick"
-                    android:textColor="#FFFFFF"
-                    android:textSize="12sp" />
+                <ImageView
+                    android:id="@+id/imgTodayPick"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@android:drawable/ic_menu_gallery" />
 
-                <TextView
-                    android:id="@+id/tvTodayPickTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:background="#4D000000"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="4dp"
-                    android:text="⏱ -- min"
-                    android:textColor="#FFFFFF"
-                    android:textSize="12sp" />
+                <!-- Overlay để text dễ đọc hơn -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#66000000" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Hôm nay ăn gì? 🧐"
-                        android:textColor="#E0E0E0"
+                        android:background="#4DFFFFFF"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="4dp"
+                        android:text="🎲 Today's Pick"
+                        android:textColor="#FFFFFF"
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/tvTodayPickTitle"
+                        android:id="@+id/tvTodayPickRating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Loading..."
+                        android:layout_alignParentEnd="true"
+                        android:background="#4D000000"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="4dp"
+                        android:text="⭐ --"
                         android:textColor="#FFFFFF"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                        android:textSize="12sp" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnSpin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
-                    android:text="Spin! ✨"
-                    android:textColor="@color/orange_primary"
-                    android:textStyle="bold"
-                    app:backgroundTint="#FFFFFF"
-                    app:cornerRadius="20dp" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Hôm nay ăn gì? 🧐"
+                            android:textColor="#E0E0E0"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tvTodayPickTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Loading..."
+                            android:textColor="#FFFFFF"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnSpin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:text="Spin! ✨"
+                        android:textColor="@color/orange_primary"
+                        android:textStyle="bold"
+                        app:backgroundTint="#FFFFFF"
+                        app:cornerRadius="20dp" />
+                </RelativeLayout>
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -224,6 +244,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tvSeeAll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"

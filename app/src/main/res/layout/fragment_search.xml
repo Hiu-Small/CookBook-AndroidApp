@@ -22,11 +22,12 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/tvResultCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="16dp"
-            android:text="6 recipes found"
+            android:text="0 recipes found"
             android:textColor="@color/text_muted"
             android:textSize="14sp" />
 
@@ -312,191 +313,14 @@
                 android:textStyle="bold" />
         </RelativeLayout>
 
-        <!-- 5. Results Cards Grid (Row 1) -->
-        <LinearLayout
+        <!-- 5. Results RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSearchResults"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:orientation="horizontal">
-
-            <!-- Card 1: Phở Bò -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="6dp"
-                android:layout_weight="1"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="1dp"
-                app:strokeWidth="0dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="120dp"
-                        android:background="#CCCCCC">
-                        <com.google.android.material.card.MaterialCardView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            app:cardBackgroundColor="#FF4B6E"
-                            app:cardCornerRadius="20dp"
-                            app:cardElevation="2dp"
-                            app:strokeWidth="0dp"
-                            android:layout_alignParentEnd="true">
-
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_gravity="center"
-                                android:src="@android:drawable/btn_star_big_on"
-                                app:tint="#FFFFFF" />
-                        </com.google.android.material.card.MaterialCardView>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_margin="8dp"
-                            android:background="#E6FFFFFF"
-                            android:paddingHorizontal="8dp"
-                            android:paddingVertical="4dp"
-                            android:text="⏱ 3h"
-                            android:textSize="10sp" />
-                    </RelativeLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="12dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Phở Bò Hà Nội"
-                            android:textColor="@color/text_dark"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@color/tag_yellow"
-                                android:paddingHorizontal="8dp"
-                                android:paddingVertical="2dp"
-                                android:text="Medium"
-                                android:textColor="@color/text_dark"
-                                android:textSize="11sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:text="⭐ 4.9"
-                                android:textColor="@color/text_dark"
-                                android:textSize="12sp"
-                                android:textStyle="bold" />
-                        </RelativeLayout>
-                    </LinearLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Card 2: Pasta -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_weight="1"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="1dp"
-                app:strokeWidth="0dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="120dp"
-                        android:background="#CCCCCC">
-                        <com.google.android.material.card.MaterialCardView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            app:cardBackgroundColor="#FF4B6E"
-                            app:cardCornerRadius="20dp"
-                            app:cardElevation="2dp"
-                            app:strokeWidth="0dp"
-                            android:layout_alignParentEnd="true">
-
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_gravity="center"
-                                android:src="@android:drawable/btn_star_big_on"
-                                app:tint="#FFFFFF" />
-                        </com.google.android.material.card.MaterialCardView>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_margin="8dp"
-                            android:background="#E6FFFFFF"
-                            android:paddingHorizontal="8dp"
-                            android:paddingVertical="4dp"
-                            android:text="⏱ 25 min"
-                            android:textSize="10sp" />
-                    </RelativeLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="12dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Pasta Carbonara"
-                            android:textColor="@color/text_dark"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@color/tag_yellow"
-                                android:paddingHorizontal="8dp"
-                                android:paddingVertical="2dp"
-                                android:text="Medium"
-                                android:textColor="@color/text_dark"
-                                android:textSize="11sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:text="⭐ 4.8"
-                                android:textColor="@color/text_dark"
-                                android:textSize="12sp"
-                                android:textStyle="bold" />
-                        </RelativeLayout>
-                    </LinearLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-        </LinearLayout>
+            android:layout_marginBottom="20dp"
+            android:clipToPadding="false"
+            android:nestedScrollingEnabled="false" />
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

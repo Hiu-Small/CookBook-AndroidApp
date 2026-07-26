@@ -374,6 +374,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return list;
     }
 
+    // Lấy món ăn phổ biến theo danh mục
+    public List<Recipe> getPopularRecipesByCategory(int categoryId, int limit) {
+        List<Recipe> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM Recipe WHERE categoryId = ? ORDER BY rating DESC LIMIT ?", 
+                new String[]{String.valueOf(categoryId), String.valueOf(limit)});
+        if (cursor.moveToFirst()) {
+            do {
+                list.add(cursorToRecipe(cursor));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return list;
+    }
+
     // Lấy 1 món ăn ngẫu nhiên cho Today's Pick
     public Recipe getRandomRecipe() {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -401,6 +416,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         recipe.setRating(cursor.getDouble(cursor.getColumnIndexOrThrow("rating")));
         recipe.setCreatedAt(cursor.getString(cursor.getColumnIndexOrThrow("createdAt")));
         return recipe;
+    }
+
+    public List<Recipe> searchRecipes(String query) {
+        List<Recipe> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        
+        // Lấy toàn bộ danh sách để lọc không dấu bằng Java
+        Cursor cursor = db.rawQuery("SELECT * FROM Recipe", null);
+        String normalizedQuery = StringHelper.removeAccents(query);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Recipe recipe = cursorToRecipe(cursor);
+                String normalizedTitle = StringHelper.removeAccents(recipe.getTitle());
+                String normalizedDesc = StringHelper.removeAccents(recipe.getDescription());
+
+                if (normalizedTitle.contains(normalizedQuery) || normalizedDesc.contains(normalizedQuery)) {
+                    list.add(recipe);
+                }
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return list;
     }
 
     // 1. Lấy hoặc tạo listId cho User

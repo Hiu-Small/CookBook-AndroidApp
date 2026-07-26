@@ -1,32 +1,23 @@
-# Hoàn thành: Động hóa dữ liệu trang Home và tính năng Spin
+# Hoàn thành: Bổ sung Danh mục "Tất cả" và Nâng cấp Tìm kiếm
 
-Tôi đã hoàn tất việc kết nối dữ liệu từ Database lên trang Home và xây dựng tính năng chọn món ngẫu nhiên (Spin).
+Tôi đã hoàn tất các yêu cầu về danh mục "Tất cả", chức năng "See all" và cải thiện tìm kiếm trống.
 
-## Các thay đổi chính
+## Các cải tiến chính
 
-### 1. Cập nhật Database
-- **[DatabaseHelper.java](file:///C:/Users/Admin/Downloads/CookBook-AndroidApp-ai-cha-cha/CookBook-AndroidApp-ai-cha-cha/app/src/main/java/com/example/cookbook/DatabaseHelper.java)**:
-    - Thêm `getAllCategories()`: Lấy danh sách các loại món ăn (Món Việt, Món Ý...).
-    - Thêm `getPopularRecipes()`: Lấy danh sách các món ăn có điểm đánh giá cao.
-    - Thêm `getRandomRecipe()`: Lấy ngẫu nhiên một món từ database.
+### 1. Danh mục "Tất cả" (All Category)
+- **[HomeFragment.java](file:///C:/Users/Admin/Downloads/CookBook-AndroidApp-ai-cha-cha/CookBook-AndroidApp-ai-cha-cha/app/src/main/java/com/example/cookbook/HomeFragment.java)**: Đã thêm mục **"Tất cả"** vào đầu danh sách danh mục. Khi nhấn vào, danh sách "Popular Recipes" sẽ hiển thị đầy đủ các món phổ biến nhất mà không bị lọc.
 
-### 2. Giao diện linh hoạt (RecyclerView)
-- **[item_category.xml](file:///C:/Users/Admin/Downloads/CookBook-AndroidApp-ai-cha-cha/CookBook-AndroidApp-ai-cha-cha/app/src/main/res/layout/item_category.xml)**: Layout cho các nút danh mục.
-- **[fragment_home.xml](file:///C:/Users/Admin/Downloads/CookBook-AndroidApp-ai-cha-cha/CookBook-AndroidApp-ai-cha-cha/app/src/main/res/layout/fragment_home.xml)**: Thay thế các thẻ tĩnh bằng `RecyclerView` để hiển thị danh sách danh mục và món ăn phổ biến một cách tự động.
+### 2. Chức năng "See all"
+- **[fragment_home.xml](file:///C:/Users/Admin/Downloads/CookBook-AndroidApp-ai-cha-cha/CookBook-AndroidApp-ai-cha-cha/app/src/main/res/layout/fragment_home.xml)**: Gán ID cho nút "See all" để xử lý sự kiện.
+- **[HomeFragment.java](file:///C:/Users/Admin/Downloads/CookBook-AndroidApp-ai-cha-cha/CookBook-AndroidApp-ai-cha-cha/app/src/main/java/com/example/cookbook/HomeFragment.java)**: Khi nhấn "See all", ứng dụng sẽ chuyển sang trang **Search** và hiển thị toàn bộ danh sách món ăn hiện có.
 
-### 3. Adapters mới
-- **[CategoryAdapter.java](file:///C:/Users/Admin/Downloads/CookBook-AndroidApp-ai-cha-cha/CookBook-AndroidApp-ai-cha-cha/app/src/main/java/com/example/cookbook/CategoryAdapter.java)**: Quản lý việc hiển thị danh mục.
-- **[RecipeAdapter.java](file:///C:/Users/Admin/Downloads/CookBook-AndroidApp-ai-cha-cha/CookBook-AndroidApp-ai-cha-cha/app/src/main/java/com/example/cookbook/RecipeAdapter.java)**: Adapter đa năng dùng để hiển thị các thẻ món ăn trên toàn ứng dụng.
-
-### 4. Logic trang Home
-- **[HomeFragment.java](file:///C:/Users/Admin/Downloads/CookBook-AndroidApp-ai-cha-cha/CookBook-AndroidApp-ai-cha-cha/app/src/main/java/com/example/cookbook/HomeFragment.java)**:
-    - Tự động nạp dữ liệu từ Database khi vào trang.
-    - Xử lý tính năng **Spin! ✨**: Mỗi lần bấm nút, ứng dụng sẽ chọn ra một món ăn ngẫu nhiên khác nhau và hiển thị lên banner "Today's Pick".
-    - Cho phép nhấn vào banner Today's Pick hoặc các món phổ biến để xem chi tiết.
+### 3. Tìm kiếm linh hoạt hơn
+- **[HomeFragment.java](file:///C:/Users/Admin/Downloads/CookBook-AndroidApp-ai-cha-cha/CookBook-AndroidApp-ai-cha-cha/app/src/main/java/com/example/cookbook/HomeFragment.java)**: Bây giờ, nếu bạn không nhập gì vào ô tìm kiếm và nhấn nút Search, ứng dụng vẫn sẽ chuyển sang trang Search để bạn khám phá tất cả món ăn thay vì chỉ hiện thông báo nhắc nhở.
+- **[SearchFragment.java](file:///C:/Users/Admin/Downloads/CookBook-AndroidApp-ai-cha-cha/CookBook-AndroidApp-ai-cha-cha/app/src/main/java/com/example/cookbook/SearchFragment.java)**: Cập nhật logic để khi từ khóa trống, ứng dụng sẽ lấy tối đa 50 món ăn phổ biến nhất từ Database để hiển thị, thay vì để màn hình trống.
 
 ## Kết quả đạt được
-- Trang Home hiện nay hoàn toàn không còn dữ liệu tĩnh ("hardcoded"). Mọi thông tin đều được lấy từ Database.
-- Tính năng "Spin" hoạt động mượt mà, giúp người dùng chọn món ăn ngẫu nhiên một cách thú vị.
+- Người dùng có thêm lựa chọn để xem lại toàn bộ món ăn sau khi lọc.
+- Trải nghiệm khám phá món ăn thông qua trang Search trở nên liền mạch và dễ dàng hơn.
 
 > [!TIP]
-> Bạn hãy thử bấm nút **Spin! ✨** vài lần để trải nghiệm sự thay đổi của banner Today's Pick!
+> Bạn có thể thử nhấn vào **"See all"** ở phần Popular Recipes để xem danh sách toàn bộ các món ăn được sắp xếp theo đánh giá!

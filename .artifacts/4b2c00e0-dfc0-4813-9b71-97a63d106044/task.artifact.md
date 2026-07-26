@@ -1,9 +1,6 @@
-# Nhiệm vụ: Động hóa dữ liệu trang Home và tính năng Spin
+# Nhiệm vụ: Bổ sung Danh mục "Tất cả" và Nâng cấp Tìm kiếm
 
-- [x] Cập nhật `DatabaseHelper.java` (thêm các phương thức truy vấn danh mục, món ăn phổ biến, món ngẫu nhiên)
-- [x] Tạo `item_category.xml` cho danh mục
-- [x] Cập nhật `fragment_home.xml` (thêm RecyclerViews và IDs cho Today's Pick)
-- [x] Tạo `CategoryAdapter.java`
-- [x] Tạo `RecipeAdapter.java` (để dùng chung cho Home và Search)
-- [x] Cập nhật `HomeFragment.java` (kết nối dữ liệu và xử lý Spin)
-- [x] Kiểm tra và xác nhận
+- [x] Cập nhật `fragment_home.xml` (thêm ID cho nút See All)
+- [x] Cập nhật `HomeFragment.java` (thêm mục "Tất cả", xử lý See all và tìm kiếm trống)
+- [x] Cập nhật `SearchFragment.java` (hiển thị toàn bộ món ăn khi tìm kiếm trống)
+- [x] Kiểm tra kết quả

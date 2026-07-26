@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +19,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 
@@ -25,10 +28,12 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     private DatabaseHelper dbHelper;
-    private TextView tvUserNameHeader, tvTodayPickTitle, tvTodayPickTime;
+    private TextView tvUserNameHeader, tvTodayPickTitle, tvTodayPickRating, tvSeeAll;
     private RecyclerView rvCategories, rvPopularRecipes;
     private MaterialButton btnSpin;
-    private MaterialCardView cardTodayPick;
+    private MaterialCardView cardTodayPick, btnSearch;
+    private EditText edtSearch;
+    private ImageView imgTodayPick;
 
     @Nullable
     @Override
@@ -41,11 +46,15 @@ public class HomeFragment extends Fragment {
         // Ánh xạ View
         tvUserNameHeader = view.findViewById(R.id.tvUserNameHeader);
         tvTodayPickTitle = view.findViewById(R.id.tvTodayPickTitle);
-        tvTodayPickTime = view.findViewById(R.id.tvTodayPickTime);
+        tvTodayPickRating = view.findViewById(R.id.tvTodayPickRating);
+        imgTodayPick = view.findViewById(R.id.imgTodayPick);
         rvCategories = view.findViewById(R.id.rvCategories);
         rvPopularRecipes = view.findViewById(R.id.rvPopularRecipes);
         btnSpin = view.findViewById(R.id.btnSpin);
         cardTodayPick = view.findViewById(R.id.cardTodayPick);
+        btnSearch = view.findViewById(R.id.btnSearch);
+        edtSearch = view.findViewById(R.id.edtSearch);
+        tvSeeAll = view.findViewById(R.id.tvSeeAll);
 
         // Hiển thị tên người dùng
         displayUserName();
@@ -64,7 +73,34 @@ public class HomeFragment extends Fragment {
             Toast.makeText(getContext(), "Đang chọn món mới... ✨", Toast.LENGTH_SHORT).show();
         });
 
+        btnSearch.setOnClickListener(v -> {
+            String query = edtSearch.getText().toString().trim();
+            navigateToSearch(query);
+        });
+
+        tvSeeAll.setOnClickListener(v -> {
+            navigateToSearch("");
+        });
+
         return view;
+    }
+
+    private void navigateToSearch(String query) {
+        SearchFragment searchFragment = new SearchFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("SEARCH_QUERY", query);
+        searchFragment.setArguments(bundle);
+
+        // Đồng bộ Thanh điều hướng (Bottom Navigation)
+        BottomNavigationView bottomNav = requireActivity().findViewById(R.id.bottomNavigationView);
+        if (bottomNav != null) {
+            bottomNav.setSelectedItemId(R.id.nav_search);
+        }
+
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, searchFragment)
+                .addToBackStack(null)
+                .commit();
     }
 
     private void displayUserName() {
@@ -78,12 +114,21 @@ public class HomeFragment extends Fragment {
 
     private void loadCategories() {
         List<Category> categoryList = dbHelper.getAllCategories();
+        // Thêm mục "Tất cả" vào đầu danh sách
+        categoryList.add(0, new Category(-1, "Tất cả"));
+        
         CategoryAdapter adapter = new CategoryAdapter(categoryList);
         rvCategories.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
         rvCategories.setAdapter(adapter);
 
         adapter.setOnItemClickListener(category -> {
-            Toast.makeText(getContext(), "Chọn danh mục: " + category.getCategoryName(), Toast.LENGTH_SHORT).show();
+            if (category.getCategoryId() == -1) {
+                loadPopularRecipes();
+                Toast.makeText(getContext(), "Hiển thị tất cả món phổ biến", Toast.LENGTH_SHORT).show();
+            } else {
+                loadPopularRecipesByCategory(category.getCategoryId());
+                Toast.makeText(getContext(), "Lọc theo: " + category.getCategoryName(), Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
@@ -101,11 +146,36 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    private void loadPopularRecipesByCategory(int categoryId) {
+        List<Recipe> popularList = dbHelper.getPopularRecipesByCategory(categoryId, 4);
+        RecipeAdapter adapter = new RecipeAdapter(popularList);
+        rvPopularRecipes.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(recipe -> {
+            Intent intent = new Intent(requireContext(), DetailActivity.class);
+            intent.putExtra("RECIPE_ID", recipe.getRecipeId());
+            intent.putExtra("RECIPE_NAME", recipe.getTitle());
+            startActivity(intent);
+        });
+    }
+
     private void loadTodayPick() {
         Recipe randomRecipe = dbHelper.getRandomRecipe();
         if (randomRecipe != null) {
             tvTodayPickTitle.setText(randomRecipe.getTitle());
-            tvTodayPickTime.setText("⏱ " + randomRecipe.getCookTime() + " min");
+            tvTodayPickRating.setText("⭐ " + randomRecipe.getRating());
+
+            int imageResId = requireContext().getResources().getIdentifier(
+                    randomRecipe.getImage(),
+                    "drawable",
+                    requireContext().getPackageName()
+            );
+
+            if (imageResId != 0) {
+                imgTodayPick.setImageResource(imageResId);
+            } else {
+                imgTodayPick.setImageResource(android.R.drawable.ic_menu_gallery);
+            }
 
             cardTodayPick.setOnClickListener(v -> {
                 Intent intent = new Intent(requireContext(), DetailActivity.class);
