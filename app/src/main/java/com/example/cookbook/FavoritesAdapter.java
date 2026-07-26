@@ -1,6 +1,7 @@
 package com.example.cookbook;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,17 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
         holder.tvTitle.setText(recipe.getTitle());
         holder.tvCookTime.setText("⏰ " + String.valueOf(recipe.getCookTime()) + " min");
         holder.tvDifficulty.setText(recipe.getDifficulty());
+        if(recipe.getDifficulty().toString().trim().equals("Easy")){
+            holder.tvDifficulty.setBackgroundColor(Color.parseColor("#E6F8F6"));
+            holder.tvDifficulty.setTextColor(Color.parseColor("#3CAEAE"));
+        }else if(recipe.getDifficulty().toString().trim().equals("Medium")){
+            holder.tvDifficulty.setBackgroundColor(Color.parseColor("#FFF6E0"));
+            holder.tvDifficulty.setTextColor(Color.parseColor("#EAB42D"));
+        }
+        else{
+            holder.tvDifficulty.setBackgroundColor(Color.parseColor("#FDECF0"));
+            holder.tvDifficulty.setTextColor(Color.parseColor("#D97567"));
+        }
         holder.tvRating.setText("⭐ " + String.valueOf(recipe.getRating()));
 
         // 2. Chuyển tên chuỗi "img_pho_bo" thành ID ảnh trong res/drawable

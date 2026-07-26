@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-             android:layout_height="match_parent">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/tvTitle"
@@ -20,6 +20,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/tvSavedCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="4 saved recipes"
+        android:textColor="#8C919E"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+    <TextView
         android:id="@+id/tvSortBy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,17 +45,22 @@
 
     <Button
         android:id="@+id/btnSortNewest"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="38dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="12dp"
         android:text="Newest"
         android:textAllCaps="false"
+        android:textColor="#FFFFFF"
         android:textSize="13sp"
         app:backgroundTint="#2B2D42"
         app:cornerRadius="20dp"
+        app:rippleColor="@android:color/transparent"
+        android:stateListAnimator="@null"
         app:layout_constraintStart_toEndOf="@+id/tvSortBy"
-        app:layout_constraintTop_toBottomOf="@+id/tvSavedCount" />
+        app:layout_constraintTop_toBottomOf="@+id/tvSavedCount"
+        app:strokeColor="#E0E0E0"/>
 
     <Button
         android:id="@+id/btnSortAZ"
@@ -51,29 +68,39 @@
         android:layout_width="wrap_content"
         android:layout_height="38dp"
         android:layout_marginStart="8dp"
-        android:backgroundTint="#FFC107"
+        android:backgroundTint="#FBF8F5"
         android:text="A → Z"
         android:textAllCaps="false"
         android:textColor="#8C919E"
         android:textSize="13sp"
         app:cornerRadius="20dp"
+        app:rippleColor="@android:color/transparent"
+        android:stateListAnimator="@null"
         app:layout_constraintBottom_toBottomOf="@+id/btnSortNewest"
         app:layout_constraintStart_toEndOf="@+id/btnSortNewest"
         app:layout_constraintTop_toTopOf="@+id/btnSortNewest"
         app:layout_constraintVertical_bias="0.0"
         app:strokeColor="#E0E0E0" />
 
-    <TextView
-        android:id="@+id/tvSavedCount"
+    <Button
+        android:id="@+id/btnLevel"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="4 saved recipes"
+        android:layout_height="38dp"
+        android:layout_marginStart="8dp"
+        android:backgroundTint="#FBF8F5"
+        android:text="Level ▲"
+        android:textAllCaps="false"
         android:textColor="#8C919E"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+        android:textSize="13sp"
+        app:cornerRadius="20dp"
+        app:rippleColor="@android:color/transparent"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/btnSortAZ"
+        app:layout_constraintStart_toEndOf="@+id/btnSortAZ"
+        app:layout_constraintTop_toTopOf="@+id/btnSortAZ"
+        app:layout_constraintVertical_bias="0.0"
+        app:strokeColor="#E0E0E0" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvFavorites"
@@ -81,6 +108,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         android:clipToPadding="false"
+        android:paddingBottom="120dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2"
         tools:listitem="@layout/item_recipe_card"
@@ -88,5 +116,112 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnSortNewest" />
+
+    <!-- ================= CARD THỐNG KÊ Ở ĐÁY ================= -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardStats"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:cardBackgroundColor="#CC3B3E52"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="0dp"
+        app:strokeWidth="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="18dp"
+            android:paddingBottom="18dp">
+
+            <!-- 1. Saved -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvStatSaved"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4"
+                    android:textColor="#FF6B35"
+                    android:textSize="26sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="Saved"
+                    android:textColor="#A0A5B5"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- 2. Avg kcal -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvStatAvgKcal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="518"
+                    android:textColor="#FF6B35"
+                    android:textSize="26sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="Avg kcal"
+                    android:textColor="#A0A5B5"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- 3. Avg min -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvStatAvgMin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="67"
+                    android:textColor="#FF6B35"
+                    android:textSize="26sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="Avg min"
+                    android:textColor="#A0A5B5"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
