@@ -68,6 +68,32 @@ public class FavoritesFragment extends Fragment {
         // 3. Khởi tạo RecyclerView dạng lưới 2 cột
         recipeList = new ArrayList<>();
         adapter = new FavoritesAdapter(recipeList);
+
+        // ⚡ LẮP SỰ KIỆN NÚT TIM
+        adapter.setOnHeartClickListener((recipe, position) -> {
+            // Kiểm tra an toàn để tránh crash nếu người dùng spam click nhiều lần
+            if (position != RecyclerView.NO_POSITION) {
+                // 1. Xóa khỏi CSDL SQLite
+                boolean isDeleted = dbHelper.removeFavorite(currentUserId, recipe.getRecipeId()); // hoặc recipe.getId() tùy model của bạn
+
+                if (isDeleted) {
+                    // 2. Xóa món ăn khỏi danh sách hiển thị
+                    recipeList.remove(position);
+
+                    // 3. Hiệu ứng biến mất mượt mà cho item
+                    adapter.notifyItemRemoved(position);
+                    adapter.notifyItemRangeChanged(position, recipeList.size());
+
+                    // 4. Cập nhật lại số lượng món và Card Thống kê
+                    tvSavedCount.setText(recipeList.size() + " saved recipes");
+                    updateStatsCard();
+
+                    // (Tùy chọn) Thông báo nhẹ
+                    android.widget.Toast.makeText(requireContext(), "Removed from favorites", android.widget.Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         rvFavorites.setLayoutManager(new GridLayoutManager(requireContext(), 2));
         rvFavorites.setAdapter(adapter);
 

@@ -10,26 +10,38 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.card.MaterialCardView;
+
 import java.util.List;
 
 public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.ViewHolder> {
 
     private List<Recipe> recipeList;
     private OnItemClickListener listener;
+    private OnHeartClickListener heartClickListener;
 
     // Interface bắt sự kiện khi bấm vào 1 thẻ món ăn (để chuyển sang màn hình Chi tiết)
     public interface OnItemClickListener {
         void onItemClick(Recipe recipe);
     }
 
+    // ⚡ 2. Interface riêng cho sự kiện bấm nút Tim
+    public interface OnHeartClickListener {
+        void onHeartClick(Recipe recipe, int position);
+    }
+
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
+    }
+    public void setOnHeartClickListener(OnHeartClickListener listener) {
+        this.heartClickListener = listener;
     }
 
     // Constructor nhận danh sách món ăn
     public FavoritesAdapter(List<Recipe> recipeList) {
         this.recipeList = recipeList;
     }
+
 
     @NonNull
     @Override
@@ -61,6 +73,10 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
         }
         holder.tvRating.setText("⭐ " + String.valueOf(recipe.getRating()));
 
+        if (holder.imgStarIcon != null) {
+            holder.imgStarIcon.setColorFilter(Color.parseColor("#FFD700"));
+        }
+
         // 2. Chuyển tên chuỗi "img_pho_bo" thành ID ảnh trong res/drawable
         int imageResId = context.getResources().getIdentifier(
                 recipe.getImage(),
@@ -82,6 +98,13 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
                 listener.onItemClick(recipe);
             }
         });
+
+        // ⚡ 3. Bắt sự kiện click nút Tim
+        holder.btnHeart.setOnClickListener(v -> {
+            if (heartClickListener != null) {
+                heartClickListener.onHeartClick(recipe, holder.getAdapterPosition());
+            }
+        });
     }
 
     @Override
@@ -91,12 +114,15 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
 
     // Class ViewHolder ánh xạ các View bên trong item_recipe_card.xml
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView imgRecipe;
+        ImageView imgRecipe, imgStarIcon;
+        MaterialCardView btnHeart;
         TextView tvTitle, tvCookTime, tvDifficulty, tvRating;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imgRecipe = itemView.findViewById(R.id.imgRecipe);
+            btnHeart = itemView.findViewById(R.id.btnHeart);
+            imgStarIcon = itemView.findViewById(R.id.imgStarIcon);
             tvTitle = itemView.findViewById(R.id.tvRecipeName);
             tvCookTime = itemView.findViewById(R.id.tvCookTime);
             tvDifficulty = itemView.findViewById(R.id.tvDifficulty);

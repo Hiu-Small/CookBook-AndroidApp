@@ -29,7 +29,6 @@
         <activity
             android:name=".DetailActivity"
             android:exported="true"/>
-
     </application>
 
 </manifest>

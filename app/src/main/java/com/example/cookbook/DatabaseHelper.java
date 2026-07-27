@@ -210,6 +210,42 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO Recipe (recipeId, categoryId, title, description, image, cookTime, difficulty, servings, calories, rating) " +
                 "VALUES (8, 1, 'Bánh Mỳ Chảo Bò Né', 'Bò né xèo xèo trên chảo nóng cùng trứng ốp la, pate béo ngậy, xúc xích và ăn kèm bánh mì giòn rụm.', 'img_bo_ne', 15, 'Easy', 1, 510, 4.7);");
 
+        db.execSQL("INSERT INTO Recipe (recipeId, categoryId, title, description, image, cookTime, difficulty, servings, calories, rating) " +
+                "VALUES (9, 1, 'Bánh Xèo Miền Tây', 'Bánh xèo vàng ươm, giòn rụm với nhân tôm thịt, giá đỗ, cuốn cùng rau cải xanh và nước mắm chua ngọt.', 'img_banh_xeo', 40, 'Medium', 4, 450, 4.8);");
+
+        db.execSQL("INSERT INTO Recipe (recipeId, categoryId, title, description, image, cookTime, difficulty, servings, calories, rating) " +
+                "VALUES (10, 1, 'Gỏi Cuốn Tôm Thịt', 'Món cuốn thanh mát với tôm luộc đỏ au, thịt ba chỉ béo ngậy, bún tươi và các loại rau thơm, chấm tương đậu phộng.', 'img_goi_cuon', 20, 'Easy', 2, 300, 4.9);");
+
+        db.execSQL("INSERT INTO Recipe (recipeId, categoryId, title, description, image, cookTime, difficulty, servings, calories, rating) " +
+                "VALUES (11, 2, 'Pizza Margherita', 'Pizza truyền thống nước Ý với đế bánh mỏng giòn, sốt cà chua tươi, phô mai Mozzarella béo ngậy và lá húng quế.', 'img_pizza', 60, 'Hard', 2, 600, 4.7);");
+
+        db.execSQL("INSERT INTO Recipe (recipeId, categoryId, title, description, image, cookTime, difficulty, servings, calories, rating) " +
+                "VALUES (12, 2, 'Risotto Nấm', 'Cơm Ý Risotto nấu chậm ngấm vị ngọt từ nước dùng gà, kết hợp cùng nấm hương thơm lừng và phô mai Parmesan.', 'img_risotto', 35, 'Medium', 2, 480, 4.6);");
+
+        db.execSQL("INSERT INTO Recipe (recipeId, categoryId, title, description, image, cookTime, difficulty, servings, calories, rating) " +
+                "VALUES (13, 3, 'Tteokbokki Bánh Gạo Cay', 'Bánh gạo dẻo mịn ngập trong nước sốt cay nồng đặc trưng Hàn Quốc, ăn kèm chả cá và trứng cút.', 'img_tteokbokki', 25, 'Easy', 2, 400, 4.8);");
+
+        db.execSQL("INSERT INTO Recipe (recipeId, categoryId, title, description, image, cookTime, difficulty, servings, calories, rating) " +
+                "VALUES (14, 3, 'Canh Kim Chi Thịt Heo', 'Canh kim chi chua cay đưa cơm, kết hợp cùng thịt ba chỉ heo mềm béo và đậu hũ non thanh mát.', 'img_canh_kimchi', 30, 'Easy', 3, 350, 4.7);");
+
+        db.execSQL("INSERT INTO Recipe (recipeId, categoryId, title, description, image, cookTime, difficulty, servings, calories, rating) " +
+                "VALUES (15, 4, 'Sushi Cá Hồi (Nigiri)', 'Cơm giấm Nhật Bản nắm tay dẻo thơm, bên trên là lát cá hồi sống tươi rói béo ngậy.', 'img_sushi', 45, 'Medium', 2, 320, 4.9);");
+
+        db.execSQL("INSERT INTO Recipe (recipeId, categoryId, title, description, image, cookTime, difficulty, servings, calories, rating) " +
+                "VALUES (16, 4, 'Cơm Cà ri Nhật Bản', 'Sốt cà ri sánh mịn, đậm đà vị hoa quả ngọt dịu, nấu cùng khoai tây, cà rốt và thịt bò.', 'img_curry', 40, 'Medium', 3, 550, 4.8);");
+
+        db.execSQL("INSERT INTO Recipe (recipeId, categoryId, title, description, image, cookTime, difficulty, servings, calories, rating) " +
+                "VALUES (17, 5, 'Cá Hồi Áp Chảo Măng Tây', 'Bữa tối Eat Clean hoàn hảo với phi-lê cá hồi giàu Omega-3 áp chảo xém vàng, ăn kèm măng tây xanh mướt.', 'img_salmon_asparagus', 20, 'Easy', 1, 350, 4.9);");
+
+        db.execSQL("INSERT INTO Recipe (recipeId, categoryId, title, description, image, cookTime, difficulty, servings, calories, rating) " +
+                "VALUES (18, 5, 'Smoothie Bowl Trái Cây', 'Bát sinh tố đặc xay từ quả mọng đông lạnh, trang trí với hạt chia, yến mạch và dừa khô rất tốt cho sức khỏe.', 'img_smoothie_bowl', 10, 'Easy', 1, 250, 4.7);");
+
+        db.execSQL("INSERT INTO Recipe (recipeId, categoryId, title, description, image, cookTime, difficulty, servings, calories, rating) " +
+                "VALUES (19, 6, 'Bánh Tiramisu Ý', 'Món tráng miệng nổi tiếng với lớp bánh quy đẫm vị cà phê hòa quyện cùng kem Mascarpone béo ngậy.', 'img_tiramisu', 40, 'Medium', 4, 420, 4.9);");
+
+        db.execSQL("INSERT INTO Recipe (recipeId, categoryId, title, description, image, cookTime, difficulty, servings, calories, rating) " +
+                "VALUES (20, 6, 'Chè Khúc Bạch', 'Chè thanh mát giải nhiệt mùa hè với những viên khúc bạch dai mềm béo mùi phô mai, nước đường phèn và hạnh nhân lát.', 'img_che_khuc_bach', 120, 'Medium', 4, 300, 4.8);");
+
         // ==========================================
         // 4. DỮ LIỆU BẢNG INGREDIENT (Nguyên liệu chi tiết)
         // ==========================================
@@ -266,6 +302,78 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (8, 'Pate gan heo', '30 g');");
         db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (8, 'Bánh mì giòn', '1 ổ');");
 
+        // --- Bánh Xèo (9) ---
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (9, 'Bột bánh xèo pha sẵn', '250 g');");
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (9, 'Tôm sú nhỏ & Thịt ba chỉ', '200 g mỗi loại');");
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (9, 'Giá đỗ & Hành lá', '100 g');");
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (9, 'Rau cải xanh, xà lách, rau thơm', 'Ăn kèm');");
+
+        // --- Gỏi Cuốn (10) ---
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (10, 'Bánh tráng dẻo', '1 tệp');");
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (10, 'Tôm sú & Thịt ba chỉ luộc', '150 g mỗi loại');");
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (10, 'Bún tươi', '200 g');");
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (10, 'Hẹ, xà lách, rau mùi', '1 mớ nhỏ');");
+
+        // --- Pizza Margherita (11) ---
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (11, 'Bột mì (làm đế bánh)', '200 g');");
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (11, 'Sốt cà chua xay nhuyễn', '100 ml');");
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (11, 'Phô mai Mozzarella tươi', '150 g');");
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (11, 'Lá húng quế tươi (Basil)', '1 vài lá');");
+
+        // --- Risotto Nấm (12) ---
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (12, 'Gạo Arborio (Cơm Ý)', '150 g');");
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (12, 'Nấm đùi gà & Nấm mỡ', '100 g');");
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (12, 'Nước dùng gà', '500 ml');");
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (12, 'Phô mai Parmesan & Bơ lạt', '30 g');");
+
+        // --- Tteokbokki (13) ---
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (13, 'Bánh gạo Hàn Quốc', '300 g');");
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (13, 'Chả cá Hàn Quốc (Odeng)', '2 miếng');");
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (13, 'Tương ớt Gochujang', '2 muỗng');");
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (13, 'Trứng cút luộc', '5 quả');");
+
+        // --- Canh Kim Chi (14) ---
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (14, 'Kim chi cải thảo chua', '250 g');");
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (14, 'Thịt ba chỉ heo', '150 g');");
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (14, 'Đậu hũ non', '1 hộp');");
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (14, 'Hành baro, tỏi băm', '1 ít');");
+
+        // --- Sushi Cá Hồi (15) ---
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (15, 'Gạo Nhật (Gạo Sushi)', '200 g');");
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (15, 'Phi-lê cá hồi tươi sống', '150 g');");
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (15, 'Giấm gạo, đường, muối', 'Pha nước trộn cơm');");
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (15, 'Nước tương & Mù tạt Wasabi', 'Ăn kèm');");
+
+        // --- Cơm Cà ri (16) ---
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (16, 'Viên cà ri Nhật Bản', '2 viên');");
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (16, 'Thịt bò (hoặc thịt heo)', '200 g');");
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (16, 'Khoai tây & Cà rốt', '1 củ mỗi loại');");
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (16, 'Cơm trắng', '3 bát');");
+
+        // --- Cá Hồi Măng Tây (17) ---
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (17, 'Phi-lê cá hồi tươi', '200 g');");
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (17, 'Măng tây xanh', '10 ngọn');");
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (17, 'Muối, tiêu đen, dầu olive', 'Gia vị ướp');");
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (17, 'Chanh vàng & Bơ lạt', 'Làm sốt');");
+
+        // --- Smoothie Bowl (18) ---
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (18, 'Chuối đông lạnh', '1 quả');");
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (18, 'Quả mọng mix (Dâu, việt quất)', '100 g');");
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (18, 'Sữa hạnh nhân không đường', '50 ml');");
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (18, 'Hạt chia, Granola, dừa sấy', 'Topping');");
+
+        // --- Tiramisu (19) ---
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (19, 'Phô mai Mascarpone', '250 g');");
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (19, 'Kem tươi Whipping cream', '200 ml');");
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (19, 'Bánh quy Sâm-panh (Ladyfinger)', '1 gói');");
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (19, 'Cà phê Espresso & Bột cacao', '1 tách nhỏ');");
+
+        // --- Chè Khúc Bạch (20) ---
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (20, 'Sữa tươi & Whipping cream', '200 ml mỗi loại');");
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (20, 'Gelatin bột', '15 g');");
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (20, 'Đường phèn, lá dứa', 'Nấu nước chè');");
+        db.execSQL("INSERT INTO Ingredient (recipeId, ingredientName, quantity) VALUES (20, 'Hạnh nhân lát rang chín', '20 g');");
+
         // ==========================================
         // 5. DỮ LIỆU BẢNG STEP (Các bước hướng dẫn chi tiết)
         // ==========================================
@@ -317,6 +425,78 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (8, 2, 'Làm nóng chảo gang, cho 1 muỗng bơ lạt vào đun chảy thơm phức.', NULL);");
         db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (8, 3, 'Cho thịt bò vào chảo đảo nhanh, đập thêm 1 quả trứng gà ốp la và rải góc pate béo ngậy.', NULL);");
         db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (8, 4, 'Rắc hành tây thái mỏng, tiêu xay lên trên, bế chảo sôi xèo xèo ra bàn và chấm ăn cùng bánh mì giòn.', NULL);");
+
+        // --- Bánh Xèo (9) ---
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (9, 1, 'Pha bột bánh xèo với nước cốt dừa, bột nghệ và hành lá cắt nhỏ, để nghỉ 20 phút.', NULL);");
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (9, 2, 'Xào sơ tôm, thịt ba chỉ với chút gia vị cho ngấm.', NULL);");
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (9, 3, 'Tráng một lớp bột mỏng lên chảo nóng nhiều dầu, cho nhân tôm thịt và giá đỗ vào giữa, đậy vung 2 phút.', NULL);");
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (9, 4, 'Mở vung chờ viền bánh giòn thì gập đôi lại. Thưởng thức nóng cùng rau sống và nước mắm chua ngọt.', NULL);");
+
+        // --- Gỏi Cuốn (10) ---
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (10, 1, 'Thịt ba chỉ luộc chín, thái lát mỏng. Tôm luộc chín, bóc vỏ, chẻ đôi sống lưng.', NULL);");
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (10, 2, 'Rửa sạch xà lách, rau thơm và hẹ, để ráo nước.', NULL);");
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (10, 3, 'Nhúng bánh tráng qua nước ấm cho mềm, trải phẳng ra đĩa.', NULL);");
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (10, 4, 'Xếp rau sống, bún, thịt lợn vào gập 2 mép. Đặt tôm đỏ ra mặt ngoài, thêm cọng hẹ rồi cuộn chặt tay.', NULL);");
+
+        // --- Pizza Margherita (11) ---
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (11, 1, 'Nhồi bột mì với men nở, dầu olive và nước ấm. Ủ bột khoảng 1 tiếng cho nở gấp đôi.', NULL);");
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (11, 2, 'Cán mỏng bột thành hình tròn để làm đế pizza, châm vài lỗ nhỏ trên mặt đế.', NULL);");
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (11, 3, 'Phết đều sốt cà chua lên mặt bánh, xếp các lát phô mai Mozzarella lên trên.', NULL);");
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (11, 4, 'Nướng ở 250 độ C trong 10-12 phút. Lấy ra trang trí thêm lá húng quế tươi và thưởng thức.', NULL);");
+
+        // --- Risotto Nấm (12) ---
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (12, 1, 'Áp chảo nấm với bơ và tỏi cho xém vàng rồi trút ra bát riêng.', NULL);");
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (12, 2, 'Cho gạo Ý vào chảo đảo qua với dầu olive. Từ từ thêm từng muỗng nước dùng gà nóng vào đun nhỏ lửa.', NULL);");
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (12, 3, 'Vừa đun vừa đảo đều tay đến khi hạt gạo ngậm đủ nước, nở bung và chín mềm (khoảng 20 phút).', NULL);");
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (12, 4, 'Tắt bếp, trộn nấm đã xào, bơ lạt và phô mai Parmesan vào để tạo độ béo ngậy, dẻo sánh.', NULL);");
+
+        // --- Tteokbokki (13) ---
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (13, 1, 'Ngâm bánh gạo trong nước ấm 10 phút cho mềm nếu dùng bánh gạo lạnh.', NULL);");
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (13, 2, 'Đun sôi 400ml nước, cho tương ớt Gochujang, đường, xì dầu vào khuấy tan thành nước sốt.', NULL);");
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (13, 3, 'Thêm bánh gạo, chả cá cắt miếng và hành tây vào nấu trên lửa vừa, đảo liên tục để không dính đáy nồi.', NULL);");
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (13, 4, 'Khi nước sốt sệt lại, cho trứng cút luộc và hành lá vào đảo đều rồi tắt bếp.', NULL);");
+
+        // --- Canh Kim Chi (14) ---
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (14, 1, 'Thái thịt ba chỉ thành miếng vừa ăn, xào săn với chút dầu mè và hành tỏi.', NULL);");
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (14, 2, 'Cho kim chi chua vào xào cùng thịt khoảng 3 phút để tiết ra màu đỏ đẹp mắt.', NULL);");
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (14, 3, 'Đổ nước lọc hoặc nước vo gạo vào đun sôi 15 phút cho thịt mềm và nước canh đậm vị.', NULL);");
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (14, 4, 'Thêm đậu hũ non thái vuông và hành baro thái xéo vào, đun sôi bùng lại rồi tắt bếp.', NULL);");
+
+        // --- Sushi Cá Hồi (15) ---
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (15, 1, 'Nấu chín gạo Nhật, xới tơi rồi trộn đều khi còn nóng với hỗn hợp giấm, đường, muối.', NULL);");
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (15, 2, 'Dùng dao mỏng, bén thái phi-lê cá hồi thành từng lát mỏng, to bản vừa ăn.', NULL);");
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (15, 3, 'Làm ướt tay, vo một nắm cơm nhỏ thành hình bầu dục (khoảng 20g cơm).', NULL);");
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (15, 4, 'Chấm 1 xíu Wasabi lên mặt dưới lát cá hồi rồi đặt miếng cá lên nắm cơm, vuốt nhẹ cho dính vào nhau.', NULL);");
+
+        // --- Cơm Cà ri (16) ---
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (16, 1, 'Khoai tây, cà rốt gọt vỏ thái hạt lựu lớn. Thịt bò thái miếng vừa ăn.', NULL);");
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (16, 2, 'Xào sơ thịt bò rồi cho khoai tây, cà rốt vào đảo cùng.', NULL);");
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (16, 3, 'Đổ nước ngập nguyên liệu, ninh sôi lửa nhỏ khoảng 20 phút cho mềm mềm.', NULL);");
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (16, 4, 'Tắt lửa, bẻ viên cà ri cho vào nồi khuấy cho tan hoàn toàn, bật lại lửa liu riu cho sốt sánh đặc là xong.', NULL);");
+
+        // --- Cá Hồi Măng Tây (17) ---
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (17, 1, 'Thấm khô cá hồi, ướp với chút muối, tiêu đen và dầu olive trong 10 phút.', NULL);");
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (17, 2, 'Măng tây cắt bỏ gốc già, luộc sơ qua nước sôi 1 phút rồi vớt ra ngâm nước đá cho giòn.', NULL);");
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (17, 3, 'Áp chảo cá hồi mặt da trước khoảng 3 phút cho xém giòn, lật mặt lại áp chảo thêm 2 phút là chín tới.', NULL);");
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (17, 4, 'Dùng cùng chiếc chảo đó, cho xíu bơ lạt vào xào nhanh măng tây. Bày ra đĩa vắt thêm chút chanh vàng.', NULL);");
+
+        // --- Smoothie Bowl (18) ---
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (18, 1, 'Bảo quản chuối và quả mọng trong ngăn đá tủ lạnh ít nhất 4 tiếng trước khi làm.', NULL);");
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (18, 2, 'Cho trái cây đông lạnh cùng sữa hạnh nhân vào máy xay sinh tố, xay nhấp thả đến khi nhuyễn đặc như kem.', NULL);");
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (18, 3, 'Đổ hỗn hợp Smoothie đặc sánh ra bát tô tròn.', NULL);");
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (18, 4, 'Xếp các loại topping: hạt chia, Granola, dừa khô, trái cây tươi cắt lát lên bề mặt thật đẹp mắt.', NULL);");
+
+        // --- Tiramisu (19) ---
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (19, 1, 'Dùng máy đánh trứng đánh bông kem tươi (Whipping cream) với đường.', NULL);");
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (19, 2, 'Tán nhuyễn phô mai Mascarpone, trộn nhẹ nhàng (fold) cùng kem tươi đã đánh bông.', NULL);");
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (19, 3, 'Nhúng thật nhanh (1 giây) bánh quy Sâm-panh qua nước cà phê Espresso rồi xếp kín đáy khuôn.', NULL);");
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (19, 4, 'Phủ 1 lớp kem lên trên, lặp lại thêm 1 lớp bánh 1 lớp kem nữa. Cất tủ lạnh 4-6 tiếng, khi ăn rây bột cacao lên mặt.', NULL);");
+
+        // --- Chè Khúc Bạch (20) ---
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (20, 1, 'Ngâm bột Gelatin với chút nước cho nở mềm.', NULL);");
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (20, 2, 'Đun nóng nhẹ (không sôi) hỗn hợp sữa tươi, Whipping cream và chút đường. Cho Gelatin vào khuấy tan.', NULL);");
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (20, 3, 'Đổ hỗn hợp ra khuôn vuông, cất tủ lạnh 3-4 tiếng cho đông cứng lại rồi dùng dao lượn sóng cắt miếng vuông nhỏ.', NULL);");
+        db.execSQL("INSERT INTO Step (recipeId, stepNumber, description, image) VALUES (20, 4, 'Nấu nước đường phèn với lá dứa cho thơm, để nguội. Khi ăn múc nước đường, khúc bạch, thêm đá và rắc hạnh nhân lát.', NULL);");
 
         // ==========================================
         // 6. DỮ LIỆU BẢNG FAVORITE (Tất cả các User)
@@ -937,6 +1117,43 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     new String[]{String.valueOf(userId), String.valueOf(recipeId)});
         } else {
             addCookHistory(userId, recipeId);
+        }
+    }
+}
+    public boolean removeFavorite(int userId, int recipeId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int rowsDeleted = db.delete("Favorite", "userId = ? AND recipeId = ?",
+                new String[]{String.valueOf(userId), String.valueOf(recipeId)});
+        return rowsDeleted > 0;
+    }
+
+    // 1. Kiểm tra xem user hiện tại đã thả tim món này chưa?
+    public boolean isFavorite(int userId, int recipeId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        android.database.Cursor cursor = db.rawQuery(
+                "SELECT * FROM Favorite WHERE userId = ? AND recipeId = ?",
+                new String[]{String.valueOf(userId), String.valueOf(recipeId)}
+        );
+        boolean exists = (cursor.getCount() > 0);
+        cursor.close();
+        return exists;
+    }
+
+    // 2. Hàm Toggle: Đã thích thì Xóa, Chưa thích thì Thêm
+    public boolean toggleFavorite(int userId, int recipeId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        if (isFavorite(userId, recipeId)) {
+            // Đã thả tim -> Xóa khỏi danh sách yêu thích
+            db.delete("Favorite", "userId = ? AND recipeId = ?",
+                    new String[]{String.valueOf(userId), String.valueOf(recipeId)});
+            return false; // Trả về false nghĩa là trạng thái hiện tại: Chưa thích (Trắng)
+        } else {
+            // Chưa thả tim -> Thêm vào bảng Favorite
+            android.content.ContentValues values = new android.content.ContentValues();
+            values.put("userId", userId);
+            values.put("recipeId", recipeId);
+            db.insert("Favorite", null, values);
+            return true; // Trả về true nghĩa là trạng thái hiện tại: Đã thích (Vàng)
         }
     }
 }
