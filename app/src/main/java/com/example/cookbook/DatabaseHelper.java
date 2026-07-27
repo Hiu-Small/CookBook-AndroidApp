@@ -1071,6 +1071,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return name;
     }
 
+    public boolean removeFavorite(int userId, int recipeId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int rowsDeleted = db.delete("Favorite", "userId = ? AND recipeId = ?",
+                new String[]{String.valueOf(userId), String.valueOf(recipeId)});
+        return rowsDeleted > 0;
+    }
+
     public boolean isFavorite(int userId, int recipeId) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT 1 FROM Favorite WHERE userId = ? AND recipeId = ?",
@@ -1080,16 +1087,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return favorite;
     }
 
-    public void toggleFavorite(int userId, int recipeId) {
+    public boolean toggleFavorite(int userId, int recipeId) {
         SQLiteDatabase db = this.getWritableDatabase();
         if (isFavorite(userId, recipeId)) {
             db.delete("Favorite", "userId = ? AND recipeId = ?",
                     new String[]{String.valueOf(userId), String.valueOf(recipeId)});
+            return false;
         } else {
             ContentValues values = new ContentValues();
             values.put("userId", userId);
             values.put("recipeId", recipeId);
             db.insert("Favorite", null, values);
+            return true;
         }
     }
 
@@ -1117,43 +1126,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     new String[]{String.valueOf(userId), String.valueOf(recipeId)});
         } else {
             addCookHistory(userId, recipeId);
-        }
-    }
-}
-    public boolean removeFavorite(int userId, int recipeId) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        int rowsDeleted = db.delete("Favorite", "userId = ? AND recipeId = ?",
-                new String[]{String.valueOf(userId), String.valueOf(recipeId)});
-        return rowsDeleted > 0;
-    }
-
-    // 1. Kiểm tra xem user hiện tại đã thả tim món này chưa?
-    public boolean isFavorite(int userId, int recipeId) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        android.database.Cursor cursor = db.rawQuery(
-                "SELECT * FROM Favorite WHERE userId = ? AND recipeId = ?",
-                new String[]{String.valueOf(userId), String.valueOf(recipeId)}
-        );
-        boolean exists = (cursor.getCount() > 0);
-        cursor.close();
-        return exists;
-    }
-
-    // 2. Hàm Toggle: Đã thích thì Xóa, Chưa thích thì Thêm
-    public boolean toggleFavorite(int userId, int recipeId) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        if (isFavorite(userId, recipeId)) {
-            // Đã thả tim -> Xóa khỏi danh sách yêu thích
-            db.delete("Favorite", "userId = ? AND recipeId = ?",
-                    new String[]{String.valueOf(userId), String.valueOf(recipeId)});
-            return false; // Trả về false nghĩa là trạng thái hiện tại: Chưa thích (Trắng)
-        } else {
-            // Chưa thả tim -> Thêm vào bảng Favorite
-            android.content.ContentValues values = new android.content.ContentValues();
-            values.put("userId", userId);
-            values.put("recipeId", recipeId);
-            db.insert("Favorite", null, values);
-            return true; // Trả về true nghĩa là trạng thái hiện tại: Đã thích (Vàng)
         }
     }
 }

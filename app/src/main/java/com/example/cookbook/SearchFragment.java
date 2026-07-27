@@ -96,9 +96,7 @@ public class SearchFragment extends Fragment {
 
         // Khởi tạo RecyclerView
         recipeList = new ArrayList<>();
-        SharedPreferences pref = requireActivity().getSharedPreferences("UserSession", Context.MODE_PRIVATE);
-        int currentUserId = pref.getInt("KEY_USER_ID", -1);
-        adapter = new RecipeAdapter(recipeList, currentUserId, dbHelper);
+        adapter = new RecipeAdapter(recipeList, userId, dbHelper);
         rvSearchResults.setLayoutManager(new GridLayoutManager(requireContext(), 2));
         rvSearchResults.setAdapter(adapter);
 

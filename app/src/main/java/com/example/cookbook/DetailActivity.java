@@ -22,7 +22,7 @@ public class DetailActivity extends AppCompatActivity {
     private int userId;
     private DatabaseHelper dbHelper;
 
-    private TextView tvRecipeTitle, tvRecipeRating, tvRecipeDescription, tvCookTime, tvCalories;
+    private TextView tvRecipeTitle, tvRecipeRating, tvRecipeDescription, tvCookTime, tvCalories, tvServes;
     private TextView tvRecipeDifficulty, tvRecipeCategory;
     private TextView tvMarkAsCooked;
     private ImageView imgRecipeHero, imgFavorite, imgMarkAsCooked;
@@ -64,6 +64,7 @@ public class DetailActivity extends AppCompatActivity {
         tvRecipeRating = findViewById(R.id.tvRecipeRating);
         tvRecipeDescription = findViewById(R.id.tvRecipeDescription);
         tvCookTime = findViewById(R.id.tvCookTime);
+        tvServes = findViewById(R.id.tvServes);
         tvCalories = findViewById(R.id.tvCalories);
         tvRecipeDifficulty = findViewById(R.id.tvRecipeDifficulty);
         tvRecipeCategory = findViewById(R.id.tvRecipeCategory);
@@ -94,6 +95,7 @@ public class DetailActivity extends AppCompatActivity {
         tvRecipeRating.setText("⭐ " + currentRecipe.getRating());
         tvRecipeDescription.setText(currentRecipe.getDescription());
         tvCookTime.setText("⏱ " + currentRecipe.getCookTime() + " min");
+        tvServes.setText("👥 " + currentRecipe.getServings() + " Servings");
         tvCalories.setText("🔥 " + currentRecipe.getCalories() + " kcal");
         tvRecipeDifficulty.setText(currentRecipe.getDifficulty());
         
