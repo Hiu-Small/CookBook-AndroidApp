@@ -1,6 +1,8 @@
 package com.example.cookbook;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -41,7 +43,9 @@ public class SearchFragment extends Fragment {
 
         // Khởi tạo RecyclerView
         recipeList = new ArrayList<>();
-        adapter = new RecipeAdapter(recipeList);
+        SharedPreferences pref = requireActivity().getSharedPreferences("UserSession", Context.MODE_PRIVATE);
+        int currentUserId = pref.getInt("KEY_USER_ID", -1);
+        adapter = new RecipeAdapter(recipeList, currentUserId, dbHelper);
         rvSearchResults.setLayoutManager(new GridLayoutManager(requireContext(), 2));
         rvSearchResults.setAdapter(adapter);
 

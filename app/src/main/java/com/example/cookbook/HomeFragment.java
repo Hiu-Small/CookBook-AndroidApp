@@ -134,7 +134,10 @@ public class HomeFragment extends Fragment {
 
     private void loadPopularRecipes() {
         List<Recipe> popularList = dbHelper.getPopularRecipes(4);
-        RecipeAdapter adapter = new RecipeAdapter(popularList);
+        // ⚡ Lấy currentUserId từ SharedPreferences
+        SharedPreferences pref = requireActivity().getSharedPreferences("UserSession", Context.MODE_PRIVATE);
+        int currentUserId = pref.getInt("KEY_USER_ID", -1);
+        RecipeAdapter adapter = new RecipeAdapter(popularList, currentUserId, dbHelper);
         rvPopularRecipes.setLayoutManager(new GridLayoutManager(requireContext(), 2));
         rvPopularRecipes.setAdapter(adapter);
 
@@ -148,7 +151,9 @@ public class HomeFragment extends Fragment {
 
     private void loadPopularRecipesByCategory(int categoryId) {
         List<Recipe> popularList = dbHelper.getPopularRecipesByCategory(categoryId, 4);
-        RecipeAdapter adapter = new RecipeAdapter(popularList);
+        SharedPreferences pref = requireActivity().getSharedPreferences("UserSession", Context.MODE_PRIVATE);
+        int currentUserId = pref.getInt("KEY_USER_ID", -1);
+        RecipeAdapter adapter = new RecipeAdapter(popularList, currentUserId, dbHelper);
         rvPopularRecipes.setAdapter(adapter);
 
         adapter.setOnItemClickListener(recipe -> {
