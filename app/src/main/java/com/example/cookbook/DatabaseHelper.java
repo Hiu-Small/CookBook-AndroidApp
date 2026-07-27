@@ -476,6 +476,114 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return userId;
     }
 
+    public String getUserFullName(int userId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String fullName = "User";
+        Cursor cursor = db.rawQuery("SELECT fullName FROM User WHERE userId = ?", new String[]{String.valueOf(userId)});
+        if (cursor.moveToFirst()) {
+            fullName = cursor.getString(cursor.getColumnIndexOrThrow("fullName"));
+        }
+        cursor.close();
+        return fullName;
+    }
+
+    // Lấy toàn bộ danh mục
+    public List<Category> getAllCategories() {
+        List<Category> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM Category", null);
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow("categoryId"));
+                String name = cursor.getString(cursor.getColumnIndexOrThrow("categoryName"));
+                list.add(new Category(id, name));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return list;
+    }
+
+    // Lấy danh sách món ăn phổ biến (Rating cao)
+    public List<Recipe> getPopularRecipes(int limit) {
+        List<Recipe> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM Recipe ORDER BY rating DESC LIMIT ?", new String[]{String.valueOf(limit)});
+        if (cursor.moveToFirst()) {
+            do {
+                list.add(cursorToRecipe(cursor));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return list;
+    }
+
+    // Lấy món ăn phổ biến theo danh mục
+    public List<Recipe> getPopularRecipesByCategory(int categoryId, int limit) {
+        List<Recipe> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM Recipe WHERE categoryId = ? ORDER BY rating DESC LIMIT ?", 
+                new String[]{String.valueOf(categoryId), String.valueOf(limit)});
+        if (cursor.moveToFirst()) {
+            do {
+                list.add(cursorToRecipe(cursor));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return list;
+    }
+
+    // Lấy 1 món ăn ngẫu nhiên cho Today's Pick
+    public Recipe getRandomRecipe() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Recipe recipe = null;
+        Cursor cursor = db.rawQuery("SELECT * FROM Recipe ORDER BY RANDOM() LIMIT 1", null);
+        if (cursor.moveToFirst()) {
+            recipe = cursorToRecipe(cursor);
+        }
+        cursor.close();
+        return recipe;
+    }
+
+    // Hàm phụ để chuyển đổi Cursor sang đối tượng Recipe
+    private Recipe cursorToRecipe(Cursor cursor) {
+        Recipe recipe = new Recipe();
+        recipe.setRecipeId(cursor.getInt(cursor.getColumnIndexOrThrow("recipeId")));
+        recipe.setCategoryId(cursor.getInt(cursor.getColumnIndexOrThrow("categoryId")));
+        recipe.setTitle(cursor.getString(cursor.getColumnIndexOrThrow("title")));
+        recipe.setDescription(cursor.getString(cursor.getColumnIndexOrThrow("description")));
+        recipe.setImage(cursor.getString(cursor.getColumnIndexOrThrow("image")));
+        recipe.setCookTime(cursor.getInt(cursor.getColumnIndexOrThrow("cookTime")));
+        recipe.setDifficulty(cursor.getString(cursor.getColumnIndexOrThrow("difficulty")));
+        recipe.setServings(cursor.getInt(cursor.getColumnIndexOrThrow("servings")));
+        recipe.setCalories(cursor.getInt(cursor.getColumnIndexOrThrow("calories")));
+        recipe.setRating(cursor.getDouble(cursor.getColumnIndexOrThrow("rating")));
+        recipe.setCreatedAt(cursor.getString(cursor.getColumnIndexOrThrow("createdAt")));
+        return recipe;
+    }
+
+    public List<Recipe> searchRecipes(String query) {
+        List<Recipe> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        
+        // Lấy toàn bộ danh sách để lọc không dấu bằng Java
+        Cursor cursor = db.rawQuery("SELECT * FROM Recipe", null);
+        String normalizedQuery = StringHelper.removeAccents(query);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Recipe recipe = cursorToRecipe(cursor);
+                String normalizedTitle = StringHelper.removeAccents(recipe.getTitle());
+                String normalizedDesc = StringHelper.removeAccents(recipe.getDescription());
+
+                if (normalizedTitle.contains(normalizedQuery) || normalizedDesc.contains(normalizedQuery)) {
+                    list.add(recipe);
+                }
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return list;
+    }
+
     // 1. Lấy hoặc tạo listId cho User
     public int getOrCreateGroceryListId(int userId) {
         SQLiteDatabase db = this.getWritableDatabase();
