@@ -2,8 +2,9 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
+    android:minHeight="60dp"
     app:cardBackgroundColor="#FFFFFF"
     app:cardCornerRadius="16dp"
     app:cardElevation="1dp"
@@ -11,8 +12,10 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingHorizontal="12dp">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="10dp">
 
         <!-- Icon nguyên liệu -->
         <com.google.android.material.card.MaterialCardView
@@ -37,10 +40,12 @@
         <!-- Tên nguyên liệu -->
         <TextView
             android:id="@+id/tvIngredientName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="12dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toStartOf="@id/tvIngredientQuantity"
             android:layout_toEndOf="@id/iconContainer"
             android:text="Beef marrow bones"
             android:textColor="@color/text_dark"

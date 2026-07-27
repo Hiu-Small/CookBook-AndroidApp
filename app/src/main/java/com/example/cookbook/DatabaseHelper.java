@@ -742,21 +742,66 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public List<Recipe> searchRecipes(String query) {
+        return getFilteredRecipes(-1, query, "Any time", "All", "Popular", "All");
+    }
+
+    public List<Recipe> getFilteredRecipes(int userId, String query, String timeFilter, String difficultyFilter, String sortBy, String statusFilter) {
         List<Recipe> list = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        
-        // Lấy toàn bộ danh sách để lọc không dấu bằng Java
-        Cursor cursor = db.rawQuery("SELECT * FROM Recipe", null);
-        String normalizedQuery = StringHelper.removeAccents(query);
+
+        StringBuilder sql = new StringBuilder("SELECT * FROM Recipe r WHERE 1=1");
+        List<String> args = new ArrayList<>();
+
+        if (timeFilter != null && !timeFilter.equals("Any time")) {
+            if (timeFilter.equals("< 15 min")) {
+                sql.append(" AND cookTime < 15");
+            } else if (timeFilter.equals("< 30 min")) {
+                sql.append(" AND cookTime < 30");
+            } else if (timeFilter.equals("< 60 min")) {
+                sql.append(" AND cookTime < 60");
+            } else if (timeFilter.equals(">= 60 min")) {
+                sql.append(" AND cookTime >= 60");
+            }
+        }
+
+        if (difficultyFilter != null && !difficultyFilter.equals("All")) {
+            sql.append(" AND difficulty = ?");
+            args.add(difficultyFilter);
+        }
+
+        if (statusFilter != null && !statusFilter.equals("All") && userId != -1) {
+            if (statusFilter.equals("Cooked")) {
+                sql.append(" AND EXISTS (SELECT 1 FROM CookHistory ch WHERE ch.recipeId = r.recipeId AND ch.userId = ?)");
+                args.add(String.valueOf(userId));
+            } else if (statusFilter.equals("Not Cooked")) {
+                sql.append(" AND NOT EXISTS (SELECT 1 FROM CookHistory ch WHERE ch.recipeId = r.recipeId AND ch.userId = ?)");
+                args.add(String.valueOf(userId));
+            }
+        }
+
+        if (sortBy != null) {
+            if (sortBy.contains("Popular")) {
+                sql.append(" ORDER BY rating DESC");
+            } else if (sortBy.contains("Cooking Time")) {
+                sql.append(" ORDER BY cookTime ASC");
+            }
+        } else {
+            sql.append(" ORDER BY rating DESC");
+        }
+
+        Cursor cursor = db.rawQuery(sql.toString(), args.toArray(new String[0]));
+        String normalizedQuery = (query != null && !query.isEmpty()) ? StringHelper.removeAccents(query) : null;
 
         if (cursor.moveToFirst()) {
             do {
                 Recipe recipe = cursorToRecipe(cursor);
-                String normalizedTitle = StringHelper.removeAccents(recipe.getTitle());
-                String normalizedDesc = StringHelper.removeAccents(recipe.getDescription());
-
-                if (normalizedTitle.contains(normalizedQuery) || normalizedDesc.contains(normalizedQuery)) {
+                if (normalizedQuery == null) {
                     list.add(recipe);
+                } else {
+                    String normalizedTitle = StringHelper.removeAccents(recipe.getTitle());
+                    if (normalizedTitle.contains(normalizedQuery)) {
+                        list.add(recipe);
+                    }
                 }
             } while (cursor.moveToNext());
         }
@@ -864,6 +909,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.insert("GroceryItem", null, values) != -1;
     }
 
+    public void addRecipeIngredientsToGroceryList(int userId, int recipeId) {
+        List<Ingredient> ingredients = getIngredientsByRecipeId(recipeId);
+        int listId = getOrCreateGroceryListId(userId);
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.beginTransaction();
+        try {
+            for (Ingredient ing : ingredients) {
+                ContentValues values = new ContentValues();
+                values.put("listId", listId);
+                values.put("ingredientName", ing.getIngredientName());
+                values.put("quantity", ing.getQuantity());
+                values.put("isChecked", 0);
+                values.put("recipeId", recipeId);
+                db.insert("GroceryItem", null, values);
+            }
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+        }
+    }
+
     // 2. Xóa 1 nguyên liệu duy nhất (Bấm nút dấu trừ)
     public boolean deleteGroceryItem(int itemId) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -949,6 +1016,110 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.update("User", values, "userId = ?", new String[]{String.valueOf(userId)}) > 0;
     }
 
+    public Recipe getRecipeById(int recipeId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Recipe recipe = null;
+        Cursor cursor = db.rawQuery("SELECT * FROM Recipe WHERE recipeId = ?", new String[]{String.valueOf(recipeId)});
+        if (cursor.moveToFirst()) {
+            recipe = cursorToRecipe(cursor);
+        }
+        cursor.close();
+        return recipe;
+    }
+
+    public List<Ingredient> getIngredientsByRecipeId(int recipeId) {
+        List<Ingredient> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM Ingredient WHERE recipeId = ?", new String[]{String.valueOf(recipeId)});
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow("ingredientId"));
+                String name = cursor.getString(cursor.getColumnIndexOrThrow("ingredientName"));
+                String quantity = cursor.getString(cursor.getColumnIndexOrThrow("quantity"));
+                list.add(new Ingredient(id, recipeId, name, quantity));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return list;
+    }
+
+    public List<Step> getStepsByRecipeId(int recipeId) {
+        List<Step> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM Step WHERE recipeId = ? ORDER BY stepNumber ASC", new String[]{String.valueOf(recipeId)});
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow("stepId"));
+                int num = cursor.getInt(cursor.getColumnIndexOrThrow("stepNumber"));
+                String desc = cursor.getString(cursor.getColumnIndexOrThrow("description"));
+                String img = cursor.getString(cursor.getColumnIndexOrThrow("image"));
+                list.add(new Step(id, recipeId, num, desc, img));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return list;
+    }
+
+    public String getCategoryNameById(int categoryId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String name = "";
+        Cursor cursor = db.rawQuery("SELECT categoryName FROM Category WHERE categoryId = ?", new String[]{String.valueOf(categoryId)});
+        if (cursor.moveToFirst()) {
+            name = cursor.getString(0);
+        }
+        cursor.close();
+        return name;
+    }
+
+    public boolean isFavorite(int userId, int recipeId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT 1 FROM Favorite WHERE userId = ? AND recipeId = ?",
+                new String[]{String.valueOf(userId), String.valueOf(recipeId)});
+        boolean favorite = cursor.getCount() > 0;
+        cursor.close();
+        return favorite;
+    }
+
+    public void toggleFavorite(int userId, int recipeId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        if (isFavorite(userId, recipeId)) {
+            db.delete("Favorite", "userId = ? AND recipeId = ?",
+                    new String[]{String.valueOf(userId), String.valueOf(recipeId)});
+        } else {
+            ContentValues values = new ContentValues();
+            values.put("userId", userId);
+            values.put("recipeId", recipeId);
+            db.insert("Favorite", null, values);
+        }
+    }
+
+    public void addCookHistory(int userId, int recipeId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("userId", userId);
+        values.put("recipeId", recipeId);
+        db.insert("CookHistory", null, values);
+    }
+
+    public boolean isCooked(int userId, int recipeId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT 1 FROM CookHistory WHERE userId = ? AND recipeId = ?",
+                new String[]{String.valueOf(userId), String.valueOf(recipeId)});
+        boolean cooked = cursor.getCount() > 0;
+        cursor.close();
+        return cooked;
+    }
+
+    public void toggleCookHistory(int userId, int recipeId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        if (isCooked(userId, recipeId)) {
+            db.delete("CookHistory", "userId = ? AND recipeId = ?",
+                    new String[]{String.valueOf(userId), String.valueOf(recipeId)});
+        } else {
+            addCookHistory(userId, recipeId);
+        }
+    }
+}
     public boolean removeFavorite(int userId, int recipeId) {
         SQLiteDatabase db = this.getWritableDatabase();
         int rowsDeleted = db.delete("Favorite", "userId = ? AND recipeId = ?",

@@ -97,6 +97,14 @@ public class FavoritesFragment extends Fragment {
         rvFavorites.setLayoutManager(new GridLayoutManager(requireContext(), 2));
         rvFavorites.setAdapter(adapter);
 
+        // Xử lý sự kiện click vào item
+        adapter.setOnItemClickListener(recipe -> {
+            android.content.Intent intent = new android.content.Intent(requireContext(), DetailActivity.class);
+            intent.putExtra("RECIPE_ID", recipe.getRecipeId());
+            intent.putExtra("RECIPE_NAME", recipe.getTitle());
+            startActivity(intent);
+        });
+
         // 4. Mặc định tải danh sách xếp theo "Mới nhất" (favoriteAt giảm dần)
         loadFavoriteRecipes("f.favoriteAt DESC");
 
