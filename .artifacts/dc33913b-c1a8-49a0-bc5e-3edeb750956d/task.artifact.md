@@ -1,0 +1,3 @@
+- [x] Fix overlap in `fragment_home.xml` (Today's Pick title vs Spin button)
+- [x] Fix overlap in `item_ingredient.xml` (Ingredient name vs Quantity badge)
+- [x] Verify UI changes

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FAFAFA"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- 1. TIÊU ĐỀ MÀN HÌNH -->
+        <TextView
+            android:id="@+id/tvHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Grocery List 🛒"
+            android:textColor="#2B2D42"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+        <!-- 2. CARD TIẾN ĐỘ (SHOPPING PROGRESS) -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="1dp"
+            app:strokeWidth="0dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tvProgressTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Shopping progress"
+                    android:textColor="#2B2D42"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvProgressCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0/0"
+                    android:textColor="#00B8A9"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:layout_marginTop="12dp"
+                    android:max="100"
+                    android:progress="0"
+                    android:progressDrawable="@android:drawable/progress_horizontal"
+                    android:progressTint="#FF6B35"
+                    android:progressBackgroundTint="#F0F2F5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvProgressTitle" />
+
+                <TextView
+                    android:id="@+id/tvCompleteMessage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="🎉 All items checked! Ready to cook."
+                    android:textColor="#00B8A9"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/progressBar" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- 3. NÚT CLEAR COMPLETED -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnClearCompleted"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_gravity="end"
+            android:layout_marginTop="12dp"
+            android:text="🗑 Clear 0 completed"
+            android:textAllCaps="false"
+            android:textColor="#E11D48"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:backgroundTint="#FFE4E6"
+            app:cornerRadius="20dp" />
+
+        <!-- 4. RECYCLERVIEW HIỂN THỊ DANH SÁCH NHÓM MÓN ĐỘNG -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvGrocery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:nestedScrollingEnabled="false" />
+
+        <!-- 6. NÚT ADD ITEM BÊN DƯỚI -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAddItem"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="24dp"
+            android:text="+ Add item"
+            android:textAllCaps="false"
+            android:textColor="#8C919E"
+            android:textSize="15sp"
+            app:cornerRadius="10dp"
+            app:strokeColor="#D1D5DB"
+            app:strokeWidth="1dp" />
+
+        <!-- NÚT CLEAR ALL LIST -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnClearAllList"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginBottom="24dp"
+            android:text="🗑  Clear All List"
+            android:textAllCaps="false"
+            android:textColor="#E11D48"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:backgroundTint="#FFF1F2"
+            app:cornerRadius="12dp"
+            app:strokeColor="#FECDD3"
+            app:strokeWidth="1dp" />
+
+    </LinearLayout>
+</ScrollView>
