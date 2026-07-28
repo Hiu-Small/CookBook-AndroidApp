@@ -98,7 +98,7 @@ public class DetailActivity extends AppCompatActivity {
         tvServes.setText("👥 " + currentRecipe.getServings() + " Servings");
         tvCalories.setText("🔥 " + currentRecipe.getCalories() + " kcal");
         tvRecipeDifficulty.setText(currentRecipe.getDifficulty());
-        
+
         String categoryName = dbHelper.getCategoryNameById(currentRecipe.getCategoryId());
         tvRecipeCategory.setText(categoryName);
 
@@ -172,10 +172,10 @@ public class DetailActivity extends AppCompatActivity {
             View itemView = inflater.inflate(R.layout.item_ingredient, layoutIngredientsContainer, false);
             TextView tvName = itemView.findViewById(R.id.tvIngredientName);
             TextView tvQty = itemView.findViewById(R.id.tvIngredientQuantity);
-            
+
             tvName.setText(ing.getIngredientName());
             tvQty.setText(ing.getQuantity());
-            
+
             layoutIngredientsContainer.addView(itemView);
         }
     }
@@ -190,11 +190,11 @@ public class DetailActivity extends AppCompatActivity {
             TextView tvNumber = itemView.findViewById(R.id.tvStepNumber);
             TextView tvTitle = itemView.findViewById(R.id.tvStepTitle);
             TextView tvDesc = itemView.findViewById(R.id.tvStepDescription);
-            
+
             tvNumber.setText(String.valueOf(step.getStepNumber()));
             tvTitle.setText("Step " + step.getStepNumber());
             tvDesc.setText(step.getDescription());
-            
+
             itemView.findViewById(R.id.tvStepTime).setVisibility(View.GONE);
 
             layoutStepsContainer.addView(itemView);
